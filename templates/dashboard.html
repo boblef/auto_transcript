@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <div id="loading"><img id="loading_img" class="center mr-" src="{{ url_for('static', filename='images/loading.gif') }}"
+        style="width: 100px; height: 100px;">
+    <div class="loading_info">Finding the solution...<br>It is usually done within a minute.</div>
+</div> -->
+<div class="container-fluid" id="content">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <br>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            <span data-feather="home"></span>
+                            TOP <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/boblef/sudoku_solver" target="_blank">
+                            Code on Github
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.linkedin.com/in/koheisuzuki" target="_blank">
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://boblef.github.io/" target="_blank">
+                            MySite
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://boblef.github.io/docs/koheisuzuki_resume2020_ML.pdf"
+                            target="_blank">
+                            Resume
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="mb-2 mb-md-0">
+                <video width="90%" height="300" controls>
+                    <source src={{ url_for("static", filename="uploaded/tmp.mp4") }} type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div>
+                <form action="/process" method="POST" enctype="multipart/form-data">
+                    <ul class="btn-group">
+                        <li>
+                            <button type="submit" name="user_request" value="transcripts">Create transcripts</button>
+                        </li>
+                        <li>
+                            <button type="submit" name="user_request" value="top">Choose another file</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+<script type="text/javascript">//<![CDATA[ 
+    $(document).ready(function () {
+        $('form input').change(function () {
+            $('form p').text(this.files.length + " file(s) selected");
+        });
+    });
+//]]></script>
+{% endblock %}

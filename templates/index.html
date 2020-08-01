@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <div id="loading"><img id="loading_img" class="center mr-" src="{{ url_for('static', filename='images/loading.gif') }}"
+        style="width: 100px; height: 100px;">
+    <div class="loading_info">Finding the solution...<br>It is usually done within a minute.</div>
+</div> -->
+<div class="container-fluid" id="content">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <br>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            <span data-feather="home"></span>
+                            TOP <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/boblef/sudoku_solver" target="_blank">
+                            Code on Github
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.linkedin.com/in/koheisuzuki" target="_blank">
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://boblef.github.io/" target="_blank">
+                            MySite
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://boblef.github.io/docs/koheisuzuki_resume2020_ML.pdf"
+                            target="_blank">
+                            Resume
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <div class="mb-2 mb-md-0">
+                <div class="mr-2" id="upload_video">
+                    <form action="/upload_file" method="POST" class="upload_file" enctype="multipart/form-data">
+
+                        <input type="file" multiple class="upload_file" name="file">
+                        <p class="upload_file">Drag your files here or click in this area.</p>0
+                        <button type="submit" class="upload_file">Upload</button>
+                    </form>
+                </div>
+                <div class="mr-2" id="intro">
+                    <br>
+                    <div>
+                        <h5>About this project</h5>
+                        A Speech-To-Text app created by <strong><a href="https://boblef.github.io/"
+                                target="_blank">Kohei Suzuki</a></strong> that takes audio from the video you
+                        upload and does
+                        pre-process on it before feeding it into DeepSpeech model which trained by machine learning
+                        techniques based on <strong><a href="https://arxiv.org/abs/1412.5567" target="_blank">Baidu's
+                                Deep
+                                Speech research paper</a></strong>.<br><br>
+                        <h5>How to use</h5>
+                        Upload a video file which has speech by selecting in the file browser and click the "Upload"
+                        button.
+                        It will start the process converting the video speech to text. Once it's done, you will see the
+                        transcripts generated, and can download .json and .txt file that contains thhe
+                        transcripts.<br><br>
+                        <h5>How it works</h5>
+                        <ul>
+                            <li>Once you upload a video file (MP4, MOV), it separates audio and the video by using
+                                <strong><a href="https://kkroening.github.io/ffmpeg-python/">ffmpeg-python</a></strong>,
+                                which is a Python ffmpeg wrapper.
+                            </li>
+                            <li>After getting information of the audio and audio itself, it converts the audio to
+                                <strong>Numpy</strong>
+                                arrays by using the information it gets such as sampling rate.</li>
+                            <li>The converted Numpy array is the data to be processed by the DeepSpeech model in which
+                                it uses a language model in order to improve accuracy of the output transcripts. The
+                                output is json format that contains word, start_time, and duration.</li>
+                            <li>After the output json file is created internally, then it creates a text file in which
+                                you find transcripts given by the model.</li>
+                            <li>You can download both of files, .json and .txt file.</li>
+                        </ul>
+                        <h5>Note</h5>
+                        <ul>
+                            <li>The model was trained on <a
+                                    href="https://pdfs.semanticscholar.org/a723/97679079439b075de815553c7b687ccfa886.pdf">Fisher</a>,
+                                <a href="http://www.danielpovey.com/files/2015_icassp_librispeech.pdf">LibriSpeech</a>,
+                                <a href="http://ieeexplore.ieee.org/document/225858/">Switchboard</a>, <a
+                                    href="https://voice.mozilla.org/datasets">Common Voice English</a>, and
+                                approximately
+                                1700 hours of transcribed WAMU (NPR) radio shows explicitly licensed to use as training
+                                corpora.
+                            </li>
+                            <li>The datasets listed above have less noise in the audio files and are spoken Aumeracan
+                                English. The result of transcripts may not accurate when the video has noise or when the
+                                speaker in the video has strong accent.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2>Captured Sudoku Puzzle</h2>
+            </div> -->
+
+            <!-- <div class="table-responsive"> -->
+            <!-- <form action="/solve" method="POST" enctype="multipart/form-data">
+                    <table class="table table-striped table-sm" border="1" style="border-collapse: collapse">
+                        <tr>
+                            <th></th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                        </tr>
+                        {% for item in grid %}
+                        <tr>
+                            <th>{{loop.index}}</th>
+                            {% for digit in item %}
+                            {% if digit == 0 %}
+                            <th><input type="text" name="name" size="5" value="{{digit}}"></th>
+                            {% else %}
+                            <th><input type="text" name="name" size="5" value="{{digit}}"
+                                    style="background-color: aqua;"></th>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <h5>Please make sure every number is recognized properly, especially for 1s and 7s.</h5>
+                    <input type="submit" value="Solve" onclick="loading();">
+                </form>
+            </div> -->
+        </main>
+    </div>
+</div>
+<script type="text/javascript">//<![CDATA[ 
+    $(document).ready(function () {
+        $('form input').change(function () {
+            $('form p').text(this.files.length + " file(s) selected");
+        });
+    });
+//]]></script>
+{% endblock %}
