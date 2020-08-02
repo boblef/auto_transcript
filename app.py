@@ -17,12 +17,6 @@ ds = DeepSpeech(model_path=STT_MODEL_PATH,
                 result_txt_path=result_txt_path
                 )
 
-if not os.path.exists(os.getcwd() + "/results"):
-    os.mkdir(os.getcwd() + "/results")
-
-if not os.path.exists(os.getcwd() + "static/uploaded"):
-    os.mkdir(os.getcwd() + "static/uploaded")
-
 
 @app.route('/', methods=["GET", "POST"])
 def index():
