@@ -1,9 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- <div id="loading"><img id="loading_img" class="center mr-" src="{{ url_for('static', filename='images/loading.gif') }}"
-        style="width: 100px; height: 100px;">
-    <div class="loading_info">Finding the solution...<br>It is usually done within a minute.</div>
-</div> -->
 <div class="container-fluid" id="content">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -45,7 +41,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="mb-2 mb-md-0">
-                <video width="90%" height="300" controls>
+                <video width="100%" height="300" controls>
                     <source src={{ url_for("static", filename="uploaded/tmp.mp4") }} type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -63,7 +59,22 @@
                 </form>
             </div>
             <div>
-                {{sentence}}
+                <br>
+                {% if result_status %}
+                <h4>Transcripts</h4>
+                """<br>
+                {{sentence}}<br>
+                """<br>
+                <p><strong>* The current version does not support putting periods and commas</strong>.</p>
+                <br><br>
+                <h4>Download</h4>
+                <p>You can download a zip file that contains a JSON file that includes a list of words with the
+                    information of start time and duration and a text file that keeps a sentence of words concatenated
+                    with white space.</p>
+                <form action="/download" method="GET" enctype="multipart/form-data">
+                    <button type="submit" name="download" value="true">Download transcrips</button>
+                </form>
+                {% endif %}
             </div>
         </main>
     </div>
