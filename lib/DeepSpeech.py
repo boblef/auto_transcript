@@ -1,5 +1,4 @@
 from deepspeech import Model
-import wave
 from shlex import quote
 import subprocess
 import shlex
@@ -10,7 +9,7 @@ import ffmpeg
 
 class DeepSpeech():
     def __init__(self, model_path, scorer_path, result_json_path,
-                 candidate_transcripts=3, beam_width=None):
+                 result_txt_path, candidate_transcripts=3, beam_width=None):
 
         # Path to the Speech-To-Text model
         self.MODEL_PATH = model_path
@@ -20,6 +19,7 @@ class DeepSpeech():
         self.CANDIDATE_TRANSCRIPTS = candidate_transcripts
 
         self.result_json_path = result_json_path
+        self.result_txt_path = result_txt_path
 
         self.beam_width = beam_width
 
@@ -122,10 +122,17 @@ class DeepSpeech():
             outfile.write(json_result)
 
         dict_result = json.loads(json_result)
-        sentence = [item["word"]
-                    for item in dict_result["transcripts"][0]["words"]]
-        print(sentence)
+        word_list = [item["word"]
+                     for item in dict_result["transcripts"][0]["words"]]
+
+        sentence = " ".join(word_list)
+        self.export2textfile(sentence)
         return sentence
+
+    def export2textfile(self, sentence):
+        txt_file = open(self.result_txt_path, "w")
+        txt_file.writelines(sentence)
+        txt_file.close()
 
     def set_file(self, filepath):
         self.FILE_PATH = filepath
