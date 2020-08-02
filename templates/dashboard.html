@@ -15,7 +15,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/boblef/sudoku_solver" target="_blank">
+                        <a class="nav-link" href="https://github.com/boblef/auto_transcript" target="_blank">
                             Code on Github
                         </a>
                     </li>
@@ -74,6 +74,14 @@
                 <form action="/download" method="GET" enctype="multipart/form-data">
                     <button type="submit" name="download" value="true">Download transcrips</button>
                 </form>
+                {% else %}
+                <h4>Information</h4>
+                <p>
+                    If the video is not the one you want to get its transcripts, then click "Choose another file".<br>
+                    If it is the correct file, then click "Create transcripts" to get transcripts.<br>
+                    Video is displayed only when you upload .mp4 file. But still you can get transcripts of other files
+                    such as .MOV, .wav ansd so on by clicking "Create transcrips".
+                </p>
                 {% endif %}
             </div>
         </main>
