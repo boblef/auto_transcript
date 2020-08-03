@@ -17,6 +17,12 @@ ds = DeepSpeech(model_path=STT_MODEL_PATH,
                 result_txt_path=result_txt_path
                 )
 
+if not os.path.exists(os.getcwd() + "/results"):
+    os.mkdir(os.getcwd() + "/results")
+
+if not os.path.exists(os.getcwd() + "static/uploaded"):
+    os.mkdir(os.getcwd() + "static/uploaded")
+
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -29,7 +35,7 @@ def upload_file():
         f = request.files['file']
         ds.set_file(UPLOADED_BASE)
         f.save(UPLOADED_BASE)
-        return render_template('dashboard.html')
+        return render_template('dashboard.html', result_status=False)
 
 
 @app.route('/process', methods=["GET", "POST"])
