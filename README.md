@@ -2,7 +2,7 @@
 
 ## Speech To Text app with Flask
 
-A Speech-To-Text app with Flask in which we can upload a video or an audio file and can get transcripts of the speech inthe file we upload.
+A Speech-To-Text app with Flask in which we can upload a video or an audio file and can get transcripts of the speech in the file we upload.
 
 ##### How it works
 
