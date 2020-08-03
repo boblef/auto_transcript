@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/boblef/auto_transcript.svg?style=svg)](https://app.circleci.com/pipelines/github/boblef/auto_transcript)
+
 ## Speech To Text app with Flask
 
 A Speech-To-Text app with Flask in which we can upload a video or an audio file and can get transcripts of the speech inthe file we upload.
